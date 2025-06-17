@@ -23,6 +23,10 @@ export async function generateMetadata({ params }: { params: { user: string } })
   const title = `${displayName} (@${handle})`;
   const description = user.description || `@${handle} on Pingpad`;
 
+  const ogImageURL = `${process.env.NEXT_PUBLIC_SITE_URL}/og/user?handle=${handle}&name=${encodeURIComponent(displayName)}&profilePictureUrl=${user.profilePictureUrl}`;
+
+  console.log("🍊🍊🍊🍊🍊🍊🍊", ogImageURL);
+
   return {
     title,
     description,
@@ -70,7 +74,7 @@ const getInitialData = async (username: string) => {
   const result = await fetchPosts(client, {
     filter: {
       authors: [user.address],
-      postTypes: [PostType.Root],
+      postTypes: [PostType.Root, PostType.Quote],
     },
   });
 
